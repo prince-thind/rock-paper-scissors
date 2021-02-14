@@ -51,7 +51,9 @@ function game()
     {
         let result=playRound();
         if(result)
-        console.log("player "+result)
+        console.log("player "+result);
+        else
+        console.log("invalid move");
     }
 }
 
