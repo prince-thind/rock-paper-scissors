@@ -11,6 +11,15 @@ let moves = 0;
 let score1 = 0;
 let score2 = 0;
 
+const p1Score = document.querySelector('.p1Score');
+const p2Score = document.querySelector('.p2Score');
+const moveText = document.querySelector('.move-number');
+const playerMoveText = document.querySelector('.player-move');
+const computerMoveText = document.querySelector('.computer-move');
+const resultText = document.querySelector('.result');
+const finalResultText = document.querySelector('.final-result');
+
+
 function playRound(playerMove, computerMove)
 {
     if (playerMove == computerMove)
@@ -31,24 +40,16 @@ function reset(e)
     score1 = 0;
     score2 = 0;
 
-    const p1Score = document.querySelector('.p1Score');
-    const p2Score = document.querySelector('.p2Score');
-
     p1Score.textContent = "Player score is: " + 0;
     p2Score.textContent = "Computer score is: " + 0;
 
-    const moveText = document.querySelector('.move-number');
     moveText.textContent = "Move Number: " + 0;
 
-    const playerMoveText = document.querySelector('.player-move');
-    const computerMoveText = document.querySelector('.computer-move');
     playerMoveText.textContent = "Player Move: " + "Awaiting Response";
     computerMoveText.textContent = "Computer Move: " + "Awaiting Response";
 
-    const resultText = document.querySelector('.result');
     resultText.textContent = "Result of this Round: " + "Awaiting Response";
 
-    const finalResultText = document.querySelector('.final-result');
     finalResultText.textContent = "Final Result : " + 10 + " More need to be completed"
 
 }
@@ -84,24 +85,17 @@ function update(e)
             break;
     }
 
-    const p1Score = document.querySelector('.p1Score');
-    const p2Score = document.querySelector('.p2Score');
 
     p1Score.textContent = "Player score is: " + score1;
     p2Score.textContent = "Computer score is: " + score2;
 
-    const moveText = document.querySelector('.move-number');
     moveText.textContent = "Move Number: " + moves;
 
-    const playerMoveText = document.querySelector('.player-move');
-    const computerMoveText = document.querySelector('.computer-move');
     playerMoveText.textContent = "Player Move: " + move;
     computerMoveText.textContent = "Computer Move: " + cMove;
 
-    const resultText = document.querySelector('.result');
     resultText.textContent = "Result of this Round: " + resultString;
 
-    const finalResultText = document.querySelector('.final-result');
     if (moves >= 10)
     {
         if (score1 > score2)
