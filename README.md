@@ -1,2 +1,2 @@
-# Rock-paper-scissor-in-JS
+# Rock-paper-scissor
 basic Rock Paper Scissor game using JS
