@@ -1,112 +1,127 @@
-const gameObj = {
-  rock: { beat: 'scissor', lose: 'paper' },
-  paper: { beat: 'rock', lose: 'scissor' },
-  scissor: { beat: 'paper', lose: 'rock' },
-};
+const DOMElements = (() => {
+  const playerScore = document.querySelector('#player-score');
+  const computerScore = document.querySelector('#computer-score');
+  const buttons = [...document.querySelectorAll('.button')];
+  const playerMove = document.querySelector('#player-move');
+  const computerMove = document.querySelector('#computer-move');
+  const resultText = document.querySelector('#result');
+  const buttonReset = document.querySelector('#reset');
+  return {
+    playerScore,
+    computerScore,
+    buttons,
+    playerMove,
+    computerMove,
+    resultText,
+    buttonReset,
+  };
+})();
 
-const gameArray = ['rock', 'paper', 'scissor'];
-const resultValues = ['tie', 'win', 'lose'];
+let playerScore = 0;
+let computerScore = 0;
+init();
 
-let moves = 0;
-let score1 = 0;
-let score2 = 0;
+DOMElements.buttons.forEach((button) => {
+  button.addEventListener('click', playRound);
+});
+DOMElements.buttonReset.addEventListener('click', reset);
 
-const p1Score = document.querySelector('#p1-score');
-const p2Score = document.querySelector('#p2-score');
-const moveText = document.querySelector('#move-number');
-const playerMoveText = document.querySelector('#player-move');
-const computerMoveText = document.querySelector('#computer-move');
-const resultText = document.querySelector('#result');
-const finalResultText = document.querySelector('#final-result');
-const buttonRock = document.querySelector('#button-rock');
-const buttonPaper = document.querySelector('#button-paper');
-const buttonScissor = document.querySelector('#button-scissor');
-const buttonReset = document.querySelector('#reset');
-
-function playRound(playerMove, computerMove) {
-  if (playerMove == computerMove) {
-    return 'tie';
-  }
-  const check = gameObj[playerMove].beat == computerMove;
-
-  if (check) {
-    return 'won';
-  }
-  return 'lose';
-}
-function reset(e) {
-  moves = 0;
-  score1 = 0;
-  score2 = 0;
-
-  p1Score.textContent = 'Player score is: ' + 0;
-  p2Score.textContent = 'Computer score is: ' + 0;
-
-  moveText.textContent = 'Move Number: ' + 0;
-
-  playerMoveText.textContent = 'Player Move: ' + 'Awaiting Response';
-  computerMoveText.textContent = 'Computer Move: ' + 'Awaiting Response';
-
-  resultText.textContent = 'Result of this Round: ' + 'Awaiting Response';
-
-  finalResultText.textContent =
-    'Final Result : ' + 10 + ' More need to be completed';
+// function definitions
+function init() {
+  DOMElements.playerMove.className = 'fas';
+  DOMElements.computerMove.className = 'fas';
+  DOMElements.resultText.textContent = '';
 }
 
-function update(e) {
-  let move = e.target.textContent.toLowerCase();
-  let cMove = gameArray[Math.floor(Math.random() * 3)];
-  let result = playRound(move, cMove);
-  let resultString = '';
-  let finalResultString = '';
+function playRound(e) {
+  const playerMove = e.currentTarget.id;
+  const computerMove = randomMove();
+  const result = findResult(playerMove, computerMove);
+  updateResponseBar(playerMove, computerMove);
+  updateScores(result);
+  updateResult(result);
+}
 
-  switch (result) {
-    case 'tie':
-      moves++;
-      resultString = "It's a Tie!";
-      break;
-    case 'won':
-      score1++;
-      moves++;
-      resultString = 'Player Won!';
-      break;
-    case 'lose':
-      score2++;
-      moves++;
-      resultString = 'Computer Won!';
-      break;
-  }
+function updateResponseBar(playerMove, computerMove) {
+  DOMElements.playerMove.className = getClassName(playerMove);
+  DOMElements.computerMove.className = getClassName(computerMove);
 
-  p1Score.textContent = 'Player score is: ' + score1;
-  p2Score.textContent = 'Computer score is: ' + score2;
-
-  moveText.textContent = 'Move Number: ' + moves;
-
-  playerMoveText.textContent = 'Player Move: ' + move;
-  computerMoveText.textContent = 'Computer Move: ' + cMove;
-
-  resultText.textContent = 'Result of this Round: ' + resultString;
-
-  if (moves >= 10) {
-    if (score1 > score2) {
-      finalResultString = 'Player won!';
-    } else if (score1 < score2) {
-      finalResultString = 'Computer won!';
-    } else {
-      finalResultString = "It's a tie!";
+  function getClassName(move) {
+    switch (move) {
+      case 'rock':
+        return 'fas fa-hand-rock';
+      case 'paper':
+        return 'fas fa-hand-paper';
+      case 'scissors':
+        return 'fas fa-hand-scissors';
     }
-    finalResultText.textContent = 'Final Result : ' + finalResultString;
-
-    moves = 0;
-    score1 = 0;
-    score2 = 0;
-  } else {
-    finalResultText.textContent =
-      'Final Result : ' + (10 - moves) + ' More need to be completed';
   }
 }
 
-buttonRock.addEventListener('click', update);
-buttonPaper.addEventListener('click', update);
-buttonScissor.addEventListener('click', update);
-buttonReset.addEventListener('click', reset);
+function updateResult(result) {
+  if (result === 'win') {
+    DOMElements.resultText.textContent = 'You Won!';
+  } else if (result === 'lose') {
+    DOMElements.resultText.textContent = 'You Lost!';
+  } else {
+    DOMElements.resultText.textContent = "It's a Draw!";
+  }
+}
+
+function updateScores(result) {
+  if (result === 'win') {
+    playerScore++;
+    DOMElements.playerScore.innerText = playerScore;
+  } else if (result === 'lose') {
+    computerScore++;
+    DOMElements.computerScore.innerText = computerScore;
+  }
+}
+function findResult(playerMove, computerMove) {
+  //draw condition
+  if (playerMove === computerMove) {
+    return 'draw';
+  }
+
+  let result = null;
+
+  //win conditions
+  switch (playerMove) {
+    case 'rock':
+      if (computerMove == 'scissors') {
+        result = 'win';
+      }
+      break;
+    case 'paper':
+      if (computerMove == 'rock') {
+        result = 'win';
+      }
+      break;
+    case 'scissors':
+      if (computerMove == 'paper') {
+        result = 'win';
+      }
+      break;
+  }
+
+  //lose condition
+  if (!result) {
+    result = 'lose';
+  }
+
+  return result;
+}
+
+function randomMove() {
+  const Arr = ['rock', 'paper', 'scissors'];
+  const randomIndex = Math.trunc(Math.random() * 3);
+  return Arr[randomIndex];
+}
+
+function reset() {
+  init();
+  playerScore = 0;
+  DOMElements.playerScore.innerText = playerScore;
+  computerScore = 0;
+  DOMElements.computerScore.innerText = computerScore;
+}

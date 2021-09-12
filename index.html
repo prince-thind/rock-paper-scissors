@@ -5,38 +5,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock-Paper-Scissor</title>
+  <title>Rock Paper Scissor</title>
   <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
 <body>
   <header>
-    <h1 class="heading">Rock Paper Scissor</h1>
+    <h1 class="heading">Rock Paper Scissors</h1>
   </header>
   <main class="main">
-    <div class="scores button-bar">
-      <div class="score" id="p1-score">Player Score is: 0</div>
-      <div class="score" id="p2-score">Computer Score is: 0</div>
+    <div class="scores">
+      <div class="score"><i class="fas fa-user"></i> <span id="player-score">0</span></div>
+      <div class="score"><i class="fas fa-laptop"></i> <span id="computer-score">0</span></div>
     </div>
-    <div class="move-text">Pick your Move!</div>
-    <div class="move-bar button-bar">
-      <button class="button" id="button-rock">Rock</button><button class="button"
-        id="button-paper">Paper</button><button class="button" id="button-scissor">Scissor</button>
+    <div class="move-bar">
+      <button class="button" id="rock"><i class="far fa-hand-rock"></i></button><button class="button"
+        id="paper"><i class="far fa-hand-paper"></i></button><button class="button" id="scissors"><i
+          class="far fa-hand-scissors"></i></button>
     </div>
-    <div class="bottom-panel">
-      <div class="left-pane pane">
-        <div id="player-move">Player Move: Awaiting Response</div>
-        <div id="computer-move">Computer Move: Awaiting Response</div>
-        <div id="move-number">Move Number: 0</div>
-      </div>
-      <div class="pane middle-pane"><button class="reset" id="reset">Reset</button></div>
-      <div class="right-pane pane">
-        <div id="result">Result of this Round: Awaiting Response</div>
-        <div id="final-result">
-          Final Result: 10 More rounds need to be completed
-        </div>
-      </div>
+    <div class="response-bar">
+      <div class="response-tab"><i class="fas fa-user symbol"></i>:&nbsp;<i class="fas fa-hand-paper" id="player-move"></i></div>
+      <div class="vs">Vs.</div>
+      <div class="response-tab"><i class="fas fa-hand-rock" id="computer-move"> :</i><i class="fas fa-laptop symbol"></i></div>
     </div>
+    <div class="result" id='result'>Player Won</div>
+    <button class="reset" id="reset">Reset</button>
   </main>
   <script src="script.js"></script>
 </body>
