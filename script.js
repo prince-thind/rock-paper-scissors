@@ -113,9 +113,9 @@ function findResult(playerMove, computerMove) {
 }
 
 function randomMove() {
-  const Arr = ['rock', 'paper', 'scissors'];
+  const arr = ['rock', 'paper', 'scissors'];
   const randomIndex = Math.trunc(Math.random() * 3);
-  return Arr[randomIndex];
+  return arr[randomIndex];
 }
 
 function reset() {
