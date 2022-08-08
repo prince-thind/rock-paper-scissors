@@ -1,21 +1,12 @@
-const DOMElements = (() => {
-  const playerScore = document.querySelector('#player-score');
-  const computerScore = document.querySelector('#computer-score');
-  const buttons = [...document.querySelectorAll('.button')];
-  const playerMove = document.querySelector('#player-move');
-  const computerMove = document.querySelector('#computer-move');
-  const resultText = document.querySelector('#result');
-  const buttonReset = document.querySelector('#reset');
-  return {
-    playerScore,
-    computerScore,
-    buttons,
-    playerMove,
-    computerMove,
-    resultText,
-    buttonReset,
-  };
-})();
+const DOMElements = {
+  playerScore: document.querySelector('#player-score'),
+  computerScore: document.querySelector('#computer-score'),
+  buttons: [...document.querySelectorAll('.button')],
+  playerMove: document.querySelector('#player-move'),
+  computerMove: document.querySelector('#computer-move'),
+  resultText: document.querySelector('#result'),
+  buttonReset: document.querySelector('#reset'),
+}
 
 let playerScore = 0;
 let computerScore = 0;
@@ -28,7 +19,6 @@ DOMElements.buttonReset.addEventListener('click', reset);
 
 // function definitions
 function init() {
-  DOMElements.playerMove.className = 'fas';
   DOMElements.computerMove.className = 'fas';
   DOMElements.resultText.textContent = '';
 }
@@ -121,7 +111,7 @@ function randomMove() {
 function reset() {
   init();
   playerScore = 0;
-  DOMElements.playerScore.innerText = playerScore;
   computerScore = 0;
+  DOMElements.playerScore.innerText = playerScore;
   DOMElements.computerScore.innerText = computerScore;
 }
